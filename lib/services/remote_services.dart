@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:vtp_appcaulong/controllers/booking_information_controller.dart';
+import 'package:vtp_appcaulong/controllers/controllers.dart';
 import 'package:vtp_appcaulong/models/branch_model.dart';
 import 'package:vtp_appcaulong/models/models.dart';
 import 'package:vtp_appcaulong/services/share_prefs_helper.dart';
@@ -13,10 +14,10 @@ import '../formatter.dart';
 
 class RemoteService {
   static var client = http.Client();
-
-  static Future<List<Branch>> fetchBranches() async {
+  // static String hostname = "localhost://caulong/";
+  static Future<List<Branch>> getBranches() async {
     http.Response response = await http
-        .get(Uri.parse("https://badminton-backend.onrender.com/branches"));
+        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/branches"));
     if (response.statusCode == 200) {
       return branchFromJson(response.body);
     } else {
@@ -26,7 +27,7 @@ class RemoteService {
 
   static Future<List<Court>> fetchCourts() async {
     http.Response response = await http
-        .get(Uri.parse("https://badminton-backend.onrender.com/courts"));
+        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/courts"));
     if (response.statusCode == 200) {
       return courtFromJson(response.body);
     } else {
@@ -36,7 +37,7 @@ class RemoteService {
 
   static Future<List<Price>> fetchPrices() async {
     http.Response response = await http
-        .get(Uri.parse("https://badminton-backend.onrender.com/prices"));
+        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/prices"));
     if (response.statusCode == 200) {
       return priceFromJson(response.body);
     } else {
@@ -46,7 +47,7 @@ class RemoteService {
 
   static Future<List<Reservation>> fetchReservations() async {
     http.Response response = await http
-        .get(Uri.parse("https://badminton-backend.onrender.com/reservations"));
+        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/reservations"));
     if (response.statusCode == 200) {
       return reservationFromJson(response.body);
     } else {
@@ -56,7 +57,7 @@ class RemoteService {
 
   static Future<List<RfDetail>> fetchRfDetails() async {
     http.Response response = await http
-        .get(Uri.parse("https://badminton-backend.onrender.com/rfdetails"));
+        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/rfdetails"));
     if (response.statusCode == 200) {
       return rfDetailFromJson(response.body);
     } else {
@@ -66,7 +67,7 @@ class RemoteService {
 
   static Future<List<Customer>> fetchCustomers() async {
     http.Response response = await http
-        .get(Uri.parse("https://badminton-backend.onrender.com/customers"));
+        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/customers"));
     if (response.statusCode == 200) {
       return customerFromJson(response.body);
     } else {
@@ -77,12 +78,12 @@ class RemoteService {
   static Future<Customer> loginCustomer(
       String phoneNumber, String password) async {
     final body = jsonEncode({
-      'PhoneNumber': phoneNumber.toString(),
-      '_Password': password.toString()
+      'phoneNumber': phoneNumber.toString(),
+      'password': password.toString()
     });
     print(body);
     final http.Response res = await http.post(
-        Uri.parse('https://badminton-backend.onrender.com/v1/auth/login/'),
+        Uri.parse('https://0125-14-169-43-160.ngrok-free.app/api/auth/login'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -128,11 +129,12 @@ class RemoteService {
                 bookingInformation.bookingDate.value)),
         "PriceID": bookingInformation.priceID.value,
         // "PriceID": "P001",
-        "_Status": 1
+        "_Status": 1,
+        "token": LoginController.token
       });
 
       final http.Response res = await http.post(
-          Uri.parse('https://badminton-backend.onrender.com/reservations'),
+          Uri.parse('https://0125-14-169-43-160.ngrok-free.app/api/reservations'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -161,7 +163,7 @@ class RemoteService {
           "Note": note
         });
         http.Response res = await http.post(
-            Uri.parse('https://badminton-backend.onrender.com/rfDetails'),
+            Uri.parse('https://0125-14-169-43-160.ngrok-free.app/api/rfDetails'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },

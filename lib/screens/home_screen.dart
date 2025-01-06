@@ -70,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen>
             : RefreshIndicator(
                 onRefresh: () async {
                   fetchTime();
+                 
                   return Future.delayed(Duration(seconds: 1));
                 },
                 child: ListView(

@@ -16,15 +16,15 @@ class Branch extends Equatable {
       required this.branchName});
 
   factory Branch.fromJson(Map<String, dynamic> json) => Branch(
-        branchID: json["BranchID"],
-        branchName: json["BranchName"],
-        address: json["_Address"],
+        branchID: json["branchId"],
+        branchName: json["branchName"],
+        address: json["cAddress"],
       );
 
   Map<String, dynamic> toJson() => {
-        "BranchID": branchID,
-        "BranchName": branchName,
-        "_Address": address,
+        "branchId": branchID,
+        "branchName": branchName,
+        "cAddress": address,
       };
 
   @override

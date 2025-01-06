@@ -16,8 +16,8 @@ class CourtController extends GetxController {
   Future<void> fetchCourts() async {
     isLoading(true);
     try {
-      // var courts = await RemoteService.fetchCourts();
-      var courts = await Court.courts;
+      var courts = await RemoteService.fetchCourts();
+      // var courts = await Court.courts;
       if (courts != []) courtList.value = courts;
     } finally {
       isLoading(false);

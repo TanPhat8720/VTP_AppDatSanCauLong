@@ -16,8 +16,9 @@ class BranchController extends GetxController {
   Future<void> fetchBranches() async {
     isLoading(true);
     try {
-      // branchList.value = await RemoteService.fetchBranches();
-      branchList.value = Branch.branches;
+      
+      // branchList.value = Branch.branches;
+      branchList.value = await RemoteService.getBranches();
       // print(branches);
       if (branchList != []) isLoading(false);
     } catch (e) {

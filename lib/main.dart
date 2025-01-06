@@ -7,7 +7,6 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'config/config.dart';
-
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(HiveCustomerAdapter());

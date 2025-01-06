@@ -352,6 +352,25 @@ class _HourControl extends StatelessWidget {
       }
     }
 
+    // Kiểm tra xem giờ đã chọn có nằm trong danh sách disabledHours không
+    int _adjustHour(int hour) {
+      if (fragmentContext.selectedTime.periodOffset == 0) {
+        // AM
+        while (hour == 0 || hour == 1 || hour == 2 || hour == 3) {
+          hour =
+              (hour + 1) % TimeOfDay.hoursPerDay; // Điều chỉnh sang giờ kế tiếp
+        }
+        return hour;
+      } else {
+        while (hour == 11) {
+          hour =
+              (hour - 1) % TimeOfDay.hoursPerDay; // Điều chỉnh sang giờ kế tiếp
+        }
+        return hour;
+        // PM
+      }
+    }
+
     final TimeOfDay nextHour = hoursFromSelected(1);
     final String formattedNextHour = localizations.formatHour(
       nextHour,
@@ -853,7 +872,7 @@ class _TappableLabel {
   final int value;
 
   /// Paints the text of the label.
-   TextPainter painter;
+  TextPainter painter;
 
   /// Called when a tap gesture is detected on the label.
   final VoidCallback onTap;
@@ -1221,8 +1240,8 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
     TimeOfDay(hour: 20, minute: 0),
     TimeOfDay(hour: 22, minute: 0),
   ];
-  
-  static const disabledHours = {12,1,2,3};
+
+  static const disabledHours = {12, 1, 2, 3};
 
   _TappableLabel _buildTappableLabel(TextTheme textTheme, Color color,
       int value, String label, VoidCallback onTap) {
@@ -1236,7 +1255,7 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
         textDirection: TextDirection.ltr,
         textScaleFactor: labelScaleFactor,
       )..layout(),
-      onTap: onTap,
+      onTap: disabledHours.contains(value) ? () {} : onTap,
     );
   }
 
@@ -1260,13 +1279,14 @@ class _DialState extends State<_Dial> with SingleTickerProviderStateMixin {
         for (final TimeOfDay timeOfDay in _amHours)
           _buildTappableLabel(
             textTheme,
-            color,
+            disabledHours.contains(timeOfDay.hour) ? Colors.grey : color,
             timeOfDay.hour,
             localizations.formatHour(timeOfDay,
                 alwaysUse24HourFormat: media.alwaysUse24HourFormat),
             () {
-              if (disabledHours?.contains(timeOfDay.hour) == true) return; // Không cho chọn
-              _selectHour(timeOfDay.hour);
+              if (!disabledHours.contains(timeOfDay.hour)) {
+                _selectHour(timeOfDay.hour);
+              }
             },
           ),
       ];
@@ -1923,7 +1943,7 @@ class IntervalTimePickerDialog extends StatefulWidget {
     this.minuteLabelText,
     this.restorationId,
     this.initialEntryMode = TimePickerEntryMode.dial,
-    this.onEntryModeChanged, 
+    this.onEntryModeChanged,
     this.disabledHours,
   });
 
@@ -2633,7 +2653,7 @@ Future<TimeOfDay?> showIntervalTimePicker({
   RouteSettings? routeSettings,
   EntryModeChangeCallback? onEntryModeChanged,
   Offset? anchorPoint,
-  Set<int>? disabledHours,// Thêm danh sách các giờ bị vô hiệu hóa
+  Set<int>? disabledHours, // Thêm danh sách các giờ bị vô hiệu hóa
 }) async {
   assert(interval >= 1 && interval <= 60);
   assert(debugCheckHasMaterialLocalizations(context));
@@ -2650,7 +2670,7 @@ Future<TimeOfDay?> showIntervalTimePicker({
     hourLabelText: hourLabelText,
     minuteLabelText: minuteLabelText,
     onEntryModeChanged: onEntryModeChanged,
-    disabledHours:disabledHours,
+    disabledHours: disabledHours,
   );
   return showDialog<TimeOfDay>(
     context: context,

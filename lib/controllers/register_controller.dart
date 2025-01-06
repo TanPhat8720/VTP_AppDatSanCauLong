@@ -18,11 +18,11 @@ class RegisterController extends GetxController {
     try {
       isLoading(true);
       var body = jsonEncode({
-        "PhoneNumber": phoneNumberController.value.text,
-        "Email": emailController.value.text,
-        "FullName": fullNameController.value.text,
-        "_Password": passwordController.value.text,
-        "Username": userNameControler.value.text,
+        "phoneNumber": phoneNumberController.value.text,
+        "fullName": fullNameController.value.text,
+        "userName": userNameControler.value.text,
+        "email": emailController.value.text,
+        "password": passwordController.value.text,
         "_Status": "active"
       });
 
@@ -46,7 +46,7 @@ class RegisterController extends GetxController {
       } else {
         var res = await post(
             Uri.parse(
-                "https://badminton-backend.onrender.com/v1/auth/register/"),
+                "https://0125-14-169-43-160.ngrok-free.app/api/customers/register"),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },

@@ -28,14 +28,14 @@ class Customer extends Equatable {
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
-      username: json['Username'],
-      // password: json['_Password'],
-      name: json['FullName'],
-      email: json['Email'],
-      phoneNumber: json['PhoneNumber'],
       status: json['_Status'],
       accessToken: json['accessToken'],
-      refreshToken: json['refreshToken']);
+      refreshToken: json['refreshToken'],
+      // password: json['_Password'],
+      name: json['fullName'],
+      email: json['email'],
+      phoneNumber: json['phoneNumber'],
+      username: json['username']);
 
   static List<Customer> customers = [
     Customer(
