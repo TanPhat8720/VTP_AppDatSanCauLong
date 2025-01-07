@@ -21,8 +21,8 @@ class ReservationController extends GetxController {
   Future<void> fetchReservations() async {
     isLoading(true);
     try {
-      var reservations = Reservation.reservations;
-      // var reservations = await RemoteService.fetchReservations();
+      // var reservations = Reservation.reservations;
+      var reservations = await RemoteService.fetchReservations();
       if (reservations != []) reservationList.value = reservations;
       print(reservations);
     } finally {

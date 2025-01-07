@@ -34,7 +34,7 @@ class CustomerController extends GetxController {
     try {
       final res = await get(
         Uri.parse(
-            'https://badminton-backend.onrender.com/customers/${phoneNumber}'),
+            'https://88a7-171-227-93-122.ngrok-free.app/api/customers/${phoneNumber}'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

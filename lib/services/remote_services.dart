@@ -14,10 +14,11 @@ import '../formatter.dart';
 
 class RemoteService {
   static var client = http.Client();
-  // static String hostname = "localhost://caulong/";
+  static String hostname = "https://88a7-171-227-93-122.ngrok-free.app/api/";
+  
   static Future<List<Branch>> getBranches() async {
     http.Response response = await http
-        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/branches"));
+        .get(Uri.parse(hostname+"branches"));
     if (response.statusCode == 200) {
       return branchFromJson(response.body);
     } else {
@@ -27,7 +28,7 @@ class RemoteService {
 
   static Future<List<Court>> fetchCourts() async {
     http.Response response = await http
-        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/courts"));
+        .get(Uri.parse("https://88a7-171-227-93-122.ngrok-free.app/api/courts"));
     if (response.statusCode == 200) {
       return courtFromJson(response.body);
     } else {
@@ -37,7 +38,7 @@ class RemoteService {
 
   static Future<List<Price>> fetchPrices() async {
     http.Response response = await http
-        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/prices"));
+        .get(Uri.parse(hostname+"prices"));
     if (response.statusCode == 200) {
       return priceFromJson(response.body);
     } else {
@@ -47,7 +48,7 @@ class RemoteService {
 
   static Future<List<Reservation>> fetchReservations() async {
     http.Response response = await http
-        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/reservations"));
+        .get(Uri.parse(hostname+"reservations"));
     if (response.statusCode == 200) {
       return reservationFromJson(response.body);
     } else {
@@ -57,7 +58,7 @@ class RemoteService {
 
   static Future<List<RfDetail>> fetchRfDetails() async {
     http.Response response = await http
-        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/rfdetails"));
+        .get(Uri.parse(hostname+"rfdetails"));
     if (response.statusCode == 200) {
       return rfDetailFromJson(response.body);
     } else {
@@ -67,7 +68,7 @@ class RemoteService {
 
   static Future<List<Customer>> fetchCustomers() async {
     http.Response response = await http
-        .get(Uri.parse("https://0125-14-169-43-160.ngrok-free.app/api/customers"));
+        .get(Uri.parse(hostname+"customers"));
     if (response.statusCode == 200) {
       return customerFromJson(response.body);
     } else {
@@ -83,7 +84,7 @@ class RemoteService {
     });
     print(body);
     final http.Response res = await http.post(
-        Uri.parse('https://0125-14-169-43-160.ngrok-free.app/api/auth/login'),
+        Uri.parse(hostname+'auth/login'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -134,7 +135,7 @@ class RemoteService {
       });
 
       final http.Response res = await http.post(
-          Uri.parse('https://0125-14-169-43-160.ngrok-free.app/api/reservations'),
+          Uri.parse(hostname+'reservations'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -163,7 +164,7 @@ class RemoteService {
           "Note": note
         });
         http.Response res = await http.post(
-            Uri.parse('https://0125-14-169-43-160.ngrok-free.app/api/rfDetails'),
+            Uri.parse(hostname+'rfDetails'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },

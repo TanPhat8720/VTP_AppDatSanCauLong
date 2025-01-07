@@ -109,7 +109,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pushNamed(context, '/forgot');
                       },
                       child: Text(
-                        'Forgot Password?',
+                        // 'Forgot Password?',
+                        "",
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall!

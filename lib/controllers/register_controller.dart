@@ -46,7 +46,7 @@ class RegisterController extends GetxController {
       } else {
         var res = await post(
             Uri.parse(
-                "https://0125-14-169-43-160.ngrok-free.app/api/customers/register"),
+                "https://88a7-171-227-93-122.ngrok-free.app/api/customers/register"),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },

@@ -27,17 +27,18 @@ class ResultController extends GetxController {
   final rfdetailController = Get.put(RfDetailController());
 
   Future<void> fetchData() async {
-    reservations.value = Reservation.reservations;
-    branches.value = Branch.branches;
-    prices.value = Price.prices;
-    courts.value = Court.courts;
+    // reservations.value = Reservation.reservations;
+    reservations.value = await RemoteService.fetchReservations();
+    branches.value = await RemoteService.getBranches();
+    prices.value =  await RemoteService.fetchPrices();
+    courts.value =  await RemoteService.fetchCourts();
     courts.value = courts
         .where((element) =>
             element.branchID == bookingInformationController.branchID.value)
         .toList();
     print(courts);
-    rfdetails.value = RfDetail.rfDetails;
-    // rfdetails.value = await RemoteService.fetchRfDetails();
+    // rfdetails.value = RfDetail.rfDetails;
+    rfdetails.value = await RemoteService.fetchRfDetails();
   }
 
   @override

@@ -16,8 +16,8 @@ class RfDetailController extends GetxController {
   Future<void> fetchReservations() async {
     isLoading(true);
     try {
-      // var rfDetails = await RemoteService.fetchRfDetails();
-      var rfDetails = await RfDetail.rfDetails;
+      var rfDetails = await RemoteService.fetchRfDetails();
+      // var rfDetails = await RfDetail.rfDetails;
       if (rfDetails != []) rfDetailList.value = rfDetails;
     } finally {
       isLoading(false);

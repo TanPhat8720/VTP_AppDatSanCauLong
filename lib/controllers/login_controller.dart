@@ -24,7 +24,7 @@ class LoginController extends GetxController {
         "password": passwordController.value.text
       });
       final res = await post(
-          Uri.parse('https://0125-14-169-43-160.ngrok-free.app/api/auth/login'),
+          Uri.parse('https://88a7-171-227-93-122.ngrok-free.app/api/auth/login'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
